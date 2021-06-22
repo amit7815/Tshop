@@ -34,6 +34,17 @@ class Color(models.Model):
     slug = models.CharField(max_length = 30, null = False)
 
 
+class Tshirt(models.Model):
+    name = models.TextField(max_length = 50, null = False)
+    description = models.CharField(max_length = 500, null = False)
+    discount = models.IntegerField(default = 0)
+    image = models.ImageField(upload_to = '/upload/images', null = False)
+    occassion = models.ForeignKey(Occasion, on_delete =  models.CASCADE)
+    brand = models.ForeignKey(Brand, on_delete =  models.CASCADE)
+    color = models.ForeignKey(Color, on_delete =  models.CASCADE)
+    neck_type = models.ForeignKey(NeckType,on_delete =  models.CASCADE)
+    idealFor = models.ForeignKey(IdealFor, on_delete =  models.CASCADE)
+    
 
 
 
