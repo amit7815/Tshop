@@ -1,44 +1,50 @@
 from django.db import models
 
 # Create your models here.
-class Occasion(models.Model):
+class TshirProperty(models.Model):
+    ''' parent for tshirt properties '''
+    title = models.CharField(max_length = 30, null = False)
+    slug = models.CharField(max_length = 30, null = False, unique = True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:   # due to we don't want to add this as database table(abstract base class)
+        abstract = True
+
+class Occasion(TshirProperty):
     ''' Store ocassion like Sports , Party wear and so on '''
-    title = models.CharField(max_length = 20, null = False)
-    slug = models.CharField(max_length = 30, null= False)
+    pass
 
 
-class IdealFor(models.Model):
+class IdealFor(TshirProperty):
     '''Stores who is best suited like Men , Women, Kids '''
-    title = models.CharField(max_length = 30, null = False)
-    slug = models.CharField(max_length = 30, null = False)
+    pass
 
-class NeckType(models.Model):
+class NeckType(TshirProperty):
     ''' Stores what is the necktype of tshirt like round or V'''
-    title = models.CharField(max_length = 30, null = False)
-    slug = models.CharField(max_length = 30, null = False)
+    pass
 
 
-class Brand(models.Model):
+class Brand(TshirProperty):
     '''Stores brand of Tshirt'''
-    title = models.CharField(max_length = 30, null = False)
-    slug = models.CharField(max_length = 30, null = False)
+    pass
 
-class Sleeve(models.Model):
+class Sleeve(TshirProperty):
     ''' Stores sleeve like half, full'''
-    title = models.CharField(max_length = 30, null = False)
-    slug = models.CharField(max_length = 30, null = False)
+    pass
 
-class Color(models.Model):
+class Color(TshirProperty):
     '''Stores color of Tshirt'''
-    title = models.CharField(max_length = 30, null = False)
-    slug = models.CharField(max_length = 30, null = False)
+    pass
 
 
 class Tshirt(models.Model):
+    ''' Model for Tshirt '''
     name = models.TextField(max_length = 50, null = False)
     description = models.CharField(max_length = 500, null = False)
     discount = models.IntegerField(default = 0)
-    image = models.ImageField(upload_to = '/upload/images', null = False)
+    image = models.ImageField(upload_to = 'upload/images', null = False)
     occassion = models.ForeignKey(Occasion, on_delete =  models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete =  models.CASCADE)
     color = models.ForeignKey(Color, on_delete =  models.CASCADE)
